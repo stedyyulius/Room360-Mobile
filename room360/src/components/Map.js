@@ -7,15 +7,44 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  Image,
+  Linking,
+  Alert
 } from 'react-native';
 
 import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 
+const defaultMarkerSize = 40
+
 class Map extends Component{
   constructor(props){
     super(props)
-    this.state={}
+    this.state={
+      index : 1,
+      size  : defaultMarkerSize
+    }
+  }
+
+  marker(size){
+    return(
+      <Image
+        source={{uri:'https://socu.org/images/house-circle.png'}}
+        style={{ width: size, height: size }}
+     />
+    )
+  }
+
+  vr(url){
+      Alert.alert(
+      `Opening ${url}?`,
+      'this will open up your browser',
+      [
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => Linking.openURL(url)},
+      ],
+      { cancelable: false }
+    )
   }
 
   render() {
@@ -28,18 +57,20 @@ class Map extends Component{
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}>
-          <MapView.Marker
-            coordinate={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-            }}
-            image={{uri:'https://socu.org/images/house-circle.png'}}
-            title="Location"
-            description="http://localhost:8080/vr"
-            onPress={()=> this.vr()}/>
-        </MapView>
-    );
-  }
+            <MapView.Marker
+                coordinate={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                }}
+                onCalloutPress={()=> this.vr('http://localhost:8080/vr')}
+                title="Rumah"
+                description="http://localhost:8080/vr"
+                >
+                {this.marker(defaultMarkerSize)}
+            </MapView.Marker>
+          </MapView>
+      );
+    }
 }
 
 const styles = StyleSheet.create({
