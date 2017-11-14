@@ -16,17 +16,18 @@ import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 
 import { detail } from '../actions/index'
+import api from '../config'
 
 const defaultMarkerSize = 40
 const dummy = [{
   address: 'Jl kesono ksini',
-  url: 'http://localhost:8080/vr?1200',
+  _id: 'http://localhost:8080/vr?1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   lat: 37.7805,
   lng: -122.4100
 },{
   address: 'Jl hello world',
-  url: 'http://localhost:8080/vr?1500',
+  _id: 'http://localhost:8080/vr?1500',
   image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
   lat: 37.78000,
   lng: -122.4350
@@ -47,13 +48,13 @@ class Map extends Component{
     )
   }
 
-  vr(url){
+  vr(_id){
       Alert.alert(
       `Do you want to visit this property?`,
-      `this will redirect you to ${url}`,
+      `this will redirect you to ${api}?${_id}`,
       [
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => Linking.openURL(url)},
+        {text: 'OK', onPress: () => Linking.openURL(`${api}?${_id}`)},
       ],
       { cancelable: false }
     )
@@ -76,9 +77,9 @@ class Map extends Component{
                   latitude: m.lat,
                   longitude: m.lng,
                 }}
-                onCalloutPress={()=> this.vr(m.url)}
+                onCalloutPress={()=> this.vr(m._id)}
                 title={m.address}
-                description={m.url}
+                description={m._id}
                 onPress={()=>this.props.detail(m.image)}
                 >
                 {this.marker()}
