@@ -21,8 +21,8 @@ class Detail extends Component{
 
 const styles = StyleSheet.create({
   image:{
-      width: 120,
-      height: 120,
+      width: 220,
+      height: 220,
       marginBottom: 30
     }
 });
