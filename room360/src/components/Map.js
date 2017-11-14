@@ -15,22 +15,34 @@ import {
 import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 
+import { detail } from '../actions/index'
+
 const defaultMarkerSize = 40
+const dummy = [{
+  address: 'Jl kesono ksini',
+  url: 'http://localhost:8080/vr?1200',
+  image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
+  lat: 37.7805,
+  lng: -122.4100
+},{
+  address: 'Jl hello world',
+  url: 'http://localhost:8080/vr?1500',
+  image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
+  lat: 37.78000,
+  lng: -122.4350
+}]
 
 class Map extends Component{
   constructor(props){
     super(props)
-    this.state={
-      index : 1,
-      size  : defaultMarkerSize
-    }
+    this.state={}
   }
 
-  marker(size){
+  marker(){
     return(
       <Image
         source={{uri:'https://socu.org/images/house-circle.png'}}
-        style={{ width: size, height: size }}
+        style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
      />
     )
   }
@@ -57,17 +69,21 @@ class Map extends Component{
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}>
+          {dummy.map((m,i)=>
             <MapView.Marker
+                key={i}
                 coordinate={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
+                  latitude: m.lat,
+                  longitude: m.lng,
                 }}
-                onCalloutPress={()=> this.vr('http://localhost:8080/vr')}
-                title="Rumah"
-                description="http://localhost:8080/vr"
+                onCalloutPress={()=> this.vr(m.url)}
+                title={m.address}
+                description={m.url}
+                onPress={()=>this.props.detail(m.image)}
                 >
-                {this.marker(defaultMarkerSize)}
+                {this.marker()}
             </MapView.Marker>
+          )}
           </MapView>
       );
     }
@@ -80,7 +96,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-  }
+  },
 });
 
 const mapStateToProps = (state) =>{
@@ -91,7 +107,7 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-
+    detail: (image) => dispatch(detail(image))
   }
 }
 
