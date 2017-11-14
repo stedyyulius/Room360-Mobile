@@ -49,8 +49,8 @@ class Map extends Component{
 
   vr(url){
       Alert.alert(
-      `Opening ${url}?`,
-      'this will open up your browser',
+      `Do you want to visit this property?`,
+      `this will redirect you to ${url}`,
       [
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
         {text: 'OK', onPress: () => Linking.openURL(url)},
