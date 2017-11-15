@@ -11,11 +11,11 @@ import {
 
 import store from './src/store.js'
 import Home from './src/containers/Home'
-import Payment from './src/containers/Payment'
+import MessageForm from './src/containers/MessageForm'
 
 const Navigator = StackNavigator({
-  home    : { screen: Home },
-  Payment : { screen: Payment }
+  Room360  : { screen: Home },
+  MessageForm  : { screen: MessageForm }
 });
 
 export default class App extends Component{

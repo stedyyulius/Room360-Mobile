@@ -18,7 +18,7 @@ class Home extends Component{
     }
   }
   static navigationOptions = ({ navigation }) => ({
-    title: `Home`,
+    title: `Room360`,
     headerTitleStyle: {
       alignSelf: 'center'
     }

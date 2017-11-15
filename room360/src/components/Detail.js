@@ -17,7 +17,7 @@ class Detail extends Component{
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <TouchableOpacity onPress={()=> navigate('Payment')}>
+        <TouchableOpacity onPress={()=> navigate('MessageForm')}>
           <Image source={{uri:this.props.image}} style= { styles.image }/>
         </TouchableOpacity>
       </View>

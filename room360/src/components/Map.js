@@ -78,7 +78,7 @@ class Map extends Component{
                 {this.marker()}
             </MapView.Marker>
           )}
-          </MapView>
+        </MapView>
       );
     }
 }
