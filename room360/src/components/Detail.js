@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
 
@@ -13,8 +14,13 @@ class Detail extends Component{
     this.state={}
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <Image source={{uri:this.props.image}} style= { styles.image }/>
+      <View>
+        <TouchableOpacity onPress={()=> navigate('Payment')}>
+          <Image source={{uri:this.props.image}} style= { styles.image }/>
+        </TouchableOpacity>
+      </View>
     );
   }
 }

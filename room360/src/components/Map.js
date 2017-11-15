@@ -1,19 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import MapView from 'react-native-maps'
 import {
   StyleSheet,
   Image,
   Linking,
   Alert
 } from 'react-native';
-
-import { connect } from 'react-redux'
-import MapView from 'react-native-maps'
 
 import { detail } from '../actions/index'
 import api from '../config'
