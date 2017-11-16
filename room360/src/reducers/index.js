@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import houses from './houses-reducers.js'
-import image from './image-reducer.js'
+import detail from './detail-reducer.js'
 
 export default combineReducers({
   houses: houses,
-  image : image
+  detail : detail
 })

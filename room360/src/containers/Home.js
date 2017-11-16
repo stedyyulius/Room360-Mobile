@@ -4,30 +4,45 @@ import {
   StyleSheet,
   View,
   Image,
-  Text
+  Text,
+  Button,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 
 import Map from '../components/Map'
 import Detail from '../components/Detail'
+import Search from '../components/Search'
 
 class Home extends Component{
   constructor(props){
     super(props)
     this.state={
-      index: 1
+      index: 1,
     }
   }
   static navigationOptions = ({ navigation }) => ({
     title: `Room360`,
     headerTitleStyle: {
       alignSelf: 'center'
-    }
+    },
+    // headerRight: (
+    //   <Button
+    //     title='Search'
+    //     onPress={() => modalVisible = true}
+    //   />
+    // )
   })
 
   render() {
     return (
         <View style={styles.container}>
+          <Image
+            source={require('../assets/home-circle-blue-512.png')}
+            style={{ width: 0, height: 0 }}
+          />
           <Map />
+          <Search />
           <Detail navigation={this.props.navigation}/>
         </View>
     );
@@ -41,8 +56,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   image:{
       width: 120,

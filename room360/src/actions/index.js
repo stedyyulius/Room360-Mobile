@@ -1,10 +1,10 @@
-const detail = (image) =>{
+const detailData = (data) =>{
   return{
-    type: 'Image',
-    payload: image
+    type: 'Detail',
+    payload: data
   }
 }
 
 export{
-  detail
+  detailData
 }

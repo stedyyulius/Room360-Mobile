@@ -8,7 +8,7 @@ import {
   Alert
 } from 'react-native';
 
-import { detail } from '../actions/index'
+import { detailData } from '../actions/index'
 import api from '../config'
 
 const defaultMarkerSize = 40
@@ -16,12 +16,14 @@ const dummy = [{
   address: 'Jl kesono ksini',
   _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
+  price: '2.000.000/bulan',
   lat: 37.7805,
   lng: -122.4100
 },{
   address: 'Jl hello world',
   _id: '1500',
   image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
+  price: '5.000.000/bulan',
   lat: 37.78000,
   lng: -122.4350
 }]
@@ -29,14 +31,18 @@ const dummy = [{
 class Map extends Component{
   constructor(props){
     super(props)
-    this.state={}
+    this.state={
+      initialRender: true
+    }
   }
 
   marker(){
     return(
       <Image
-        source={{uri:'https://socu.org/images/house-circle.png'}}
+        source={require('../assets/home-circle-blue-512.png')}
         style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
+        onLayout={() => this.setState({ initialRender: false })}
+        key={`${this.state.initialRender}`}
      />
     )
   }
@@ -72,8 +78,8 @@ class Map extends Component{
                 }}
                 onCalloutPress={()=> this.vr(m._id)}
                 title={m.address}
-                description={m._id}
-                onPress={()=>this.props.detail(m.image)}
+                description={m.price}
+                onPress={()=>this.props.detailData(m)}
                 >
                 {this.marker()}
             </MapView.Marker>
@@ -101,7 +107,7 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    detail: (image) => dispatch(detail(image))
+    detailData: (data) => dispatch(detailData(data))
   }
 }
 

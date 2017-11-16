@@ -16,9 +16,9 @@ class Detail extends Component{
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
+      <View style={styles.container}>
         <TouchableOpacity onPress={()=> navigate('MessageForm')}>
-          <Image source={{uri:this.props.image}} style= { styles.image }/>
+          <Image source={{uri:this.props.detail.image}} style= { styles.image }/>
         </TouchableOpacity>
       </View>
     );
@@ -26,16 +26,25 @@ class Detail extends Component{
 }
 
 const styles = StyleSheet.create({
+  container:{
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   image:{
       width: 220,
       height: 220,
-      marginBottom: 30
+      marginBottom: 30,
     }
 });
 
 const mapStateToProps = (state) =>{
   return{
-    image: state.image
+    detail: state.detail
   }
 }
 

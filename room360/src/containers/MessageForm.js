@@ -6,7 +6,8 @@ import{
   StyleSheet,
   Text,
   Button,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native'
 
 const Form = t.form.Form
@@ -24,15 +25,30 @@ class MessageForm extends Component{
     this.state={}
   }
   static navigationOptions = ({ navigation }) => ({
-    title: `Send The Owner Some Message`,
+    title: `Message Owner`,
     headerTitleStyle: {
       alignSelf: 'center'
     }
   })
 
+  componentDidMount(){
+
+  }
+
   render(){
     return(
       <View style={styles.container}>
+        <View style={styles.detail}>
+          <Image style={styles.image} source={{uri:this.props.detail.image}} />
+          <View style={styles.specs}>
+            <Text style={styles.detailText}>
+              {this.props.detail.address}
+            </Text>
+            <Text style={styles.detailText}>
+              {this.props.detail.price}
+            </Text>
+          </View>
+        </View>
         <Form
           ref="form"
           type={Message}
@@ -67,12 +83,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  image:{
+    width: 150,
+    height: 150,
+    marginRight: 20,
+    marginBottom: 30
+  },
+  detail:{
+    flexDirection: 'row',
+  },
+  specs:{
+    flexDirection: 'column'
+  },
+  detailText:{
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 })
 
 const mapStateToProps = (state) =>{
   return{
-
+    detail: state.detail
   }
 }
 
