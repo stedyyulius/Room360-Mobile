@@ -27,6 +27,10 @@ class Home extends Component{
   render() {
     return (
         <View style={styles.container}>
+          <Image
+            source={require('../assets/home-circle-blue-512.png')}
+            style={{ width: 0, height: 0 }}
+          />
           <Map />
           <Detail navigation={this.props.navigation}/>
         </View>

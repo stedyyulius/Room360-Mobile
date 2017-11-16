@@ -14,13 +14,13 @@ import api from '../config'
 const defaultMarkerSize = 40
 const dummy = [{
   address: 'Jl kesono ksini',
-  _id: 'http://localhost:8080/vr?1200',
+  _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   lat: 37.7805,
   lng: -122.4100
 },{
   address: 'Jl hello world',
-  _id: 'http://localhost:8080/vr?1500',
+  _id: '1500',
   image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
   lat: 37.78000,
   lng: -122.4350
