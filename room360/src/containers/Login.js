@@ -28,6 +28,7 @@ class Login extends Component{
       alignSelf: 'center'
     }
   })
+
   async login(){
     let input = this.refs.form.getValue()
     await AsyncStorage.setItem('session',input.handphone)
@@ -41,7 +42,6 @@ async componentDidMount(){
       this.props.navigation.navigate('Room360')
     }
     } catch (error) {
-      
     }
   }
 
@@ -54,7 +54,7 @@ async componentDidMount(){
           options={options}
         />
         <Button
-          title="tes"
+          title="Login"
           onPress={()=> this.login()}
         />
       </View>

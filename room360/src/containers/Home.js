@@ -28,7 +28,15 @@ class Home extends Component{
     headerTitleStyle: {
       alignSelf: 'center'
     },
-    headerLeft: null
+    headerLeft: null,
+    headerRight: (
+      <Button
+      title="Logout"
+      onPress={()=>{
+        AsyncStorage.removeItem('session')
+        navigation.navigate('Login')
+      }}/>
+    )
   })
 
   // async componentDidMount(){

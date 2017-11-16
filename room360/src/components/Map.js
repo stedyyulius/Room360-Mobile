@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Image,
   Linking,
-  Alert
+  Alert,
+  AsyncStorage
 } from 'react-native';
 
 import { detailData } from '../actions/index'
@@ -57,29 +58,37 @@ class Map extends Component{
     })
   }
 
-  componentWillMount(){
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     alert(position);
-    //    },
-    //    (error) => {
-    //     alert(error)
-    //   },
-    //   {enableHighAccuracy: true, timeout: 20000, maximumAge: 10000}
-    // );
-    var url = 'https://freegeoip.net/json/';
-    axios.get(url)
-    .then(res=>{
-      this.setState({
-        region:{
-          latitude: res.data.latitude,
-          longitude: res.data.longitude,
-          latitudeDelta: defaultZoom,
-          longitudeDelta: defaultZoom,
-        }
-      })
-    })
-  }
+  componentDidMount(){
+      const value = AsyncStorage.getItem('session');
+      const headers = {}
+      headers['Authorization']  = '4QRpm0bwipvxIoKnMo2S8zl41RQQwHZk'
+      headers['Content-Type']   = 'application/json'
+      if (value !== null){
+      var url = `https://blinke-stage.apigee.net/io/users/${value}/location`;
+        axios.get(url,{headers: headers})
+        .then(res=>{
+          alert(JSON.stringify(res))
+          this.setState({
+            region:{
+              latitude: res.data.location.latitude,
+              longitude: res.data.location.longitude,
+              latitudeDelta: defaultZoom,
+              longitudeDelta: defaultZoom,
+            }
+          })
+        })
+        .catch(err=>{
+          this.setState({
+            region:{
+              latitude: -6.1744,
+              longitude: 106.8294,
+              latitudeDelta: defaultZoom,
+              longitudeDelta: defaultZoom,
+            }
+          })
+        })
+      }
+    }
 
   marker(){
     return(
