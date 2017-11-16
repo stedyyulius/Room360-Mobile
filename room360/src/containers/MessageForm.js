@@ -24,7 +24,7 @@ class MessageForm extends Component{
     this.state={}
   }
   static navigationOptions = ({ navigation }) => ({
-    title: `Send The Owner Some Message`,
+    title: `Message Owner`,
     headerTitleStyle: {
       alignSelf: 'center'
     }

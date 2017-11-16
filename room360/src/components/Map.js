@@ -14,13 +14,13 @@ import api from '../config'
 const defaultMarkerSize = 40
 const dummy = [{
   address: 'Jl kesono ksini',
-  _id: 'http://localhost:8080/vr?1200',
+  _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   lat: 37.7805,
   lng: -122.4100
 },{
   address: 'Jl hello world',
-  _id: 'http://localhost:8080/vr?1500',
+  _id: '1500',
   image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
   lat: 37.78000,
   lng: -122.4350
@@ -29,14 +29,18 @@ const dummy = [{
 class Map extends Component{
   constructor(props){
     super(props)
-    this.state={}
+    this.state={
+      initialRender: true
+    }
   }
 
   marker(){
     return(
       <Image
-        source={{uri:'https://socu.org/images/house-circle.png'}}
+        source={require('../assets/home-circle-blue-512.png')}
         style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
+        onLayout={() => this.setState({ initialRender: false })}
+        key={`${this.state.initialRender}`}
      />
     )
   }
