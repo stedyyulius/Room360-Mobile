@@ -7,7 +7,8 @@ import {
   Text,
   Button,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import Map from '../components/Map'
@@ -26,13 +27,20 @@ class Home extends Component{
     headerTitleStyle: {
       alignSelf: 'center'
     },
-    // headerRight: (
-    //   <Button
-    //     title='Search'
-    //     onPress={() => modalVisible = true}
-    //   />
-    // )
+    headerLeft: null
   })
+
+  // async componentDidMount(){
+  //   try {
+  //   const value = await AsyncStorage.getItem('session');
+  //   if (value !== null){
+  //     alert(value);
+  //   }
+  //   } catch (error) {
+  //     alert(error)
+  //     this.props.navigation.navigate('Login')
+  //   }
+  // }
 
   render() {
     return (

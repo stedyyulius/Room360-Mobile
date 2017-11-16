@@ -10,11 +10,13 @@ import {
 } from 'react-native';
 
 import store from './src/store.js'
+import Login from './src/containers/Login'
 import Home from './src/containers/Home'
 import MessageForm from './src/containers/MessageForm'
 
 const Navigator = StackNavigator({
-  Room360  : { screen: Home },
+  Login        : { screen: Login },
+  Room360      : { screen: Home },
   MessageForm  : { screen: MessageForm }
 });
 

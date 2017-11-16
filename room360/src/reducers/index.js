@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
-import houses from './houses-reducers.js'
-import detail from './detail-reducer.js'
+import houses from './houses-reducers'
+import detail from './detail-reducer'
+import session from './session-reducer'
 
 export default combineReducers({
   houses: houses,
-  detail : detail
+  detail : detail,
+  session: session
 })

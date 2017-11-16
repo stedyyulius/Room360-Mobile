@@ -5,6 +5,14 @@ const detailData = (data) =>{
   }
 }
 
+const setSession = (status) =>{
+  return{
+    type: 'Session',
+    payload: status
+  }
+}
+
 export{
-  detailData
+  detailData,
+  setSession
 }
