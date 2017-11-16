@@ -1,9 +1,9 @@
-const { user, users, createUser, updateUser, deleteUser } = require('./user360Schema')
+const { user, users, loginuser, createUser, updateUser, deleteUser } = require('./user360Schema')
 const { request, requests, createRequest, updateRequest, deleteRequest } = require('./requestSchema')
-const { property, properties, createProperty, updateProperty, deleteProperty } = require('./propertySchema')
+const { property, properties, createProperty, updateProperty, deleteProperty, changeStatusProperty } = require('./propertySchema')
 
 module.exports = {
-  user, users, createUser, updateUser, deleteUser,
+  user, users, loginuser, createUser, updateUser, deleteUser,
   request, requests, createRequest, updateRequest, deleteRequest,
-  property, properties, createProperty, updateProperty, deleteProperty
+  property, properties, createProperty, updateProperty, deleteProperty, changeStatusProperty
 }

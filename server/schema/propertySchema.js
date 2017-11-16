@@ -18,6 +18,7 @@ const PropertyType = new GraphQLObjectType({
     _id: {type: GraphQLID},
     owner: user,
     address: {type: GraphQLString},
+    price: {type: GraphQLString},
     image: {
       type: new GraphQLObjectType({
         name: "ImageType",
@@ -39,6 +40,7 @@ const PropertyInputType = new GraphQLInputObjectType({
     id: {type: GraphQLString},
     owner: {type: GraphQLID},
     address: {type: GraphQLString},
+    price: {type: GraphQLString},
     image_standard: {type: GraphQLString},
     image_vr: {type: new GraphQLList(GraphQLString)},
     lat: {type: GraphQLString},
@@ -49,8 +51,13 @@ const PropertyInputType = new GraphQLInputObjectType({
 
 const properties = {
   type: new GraphQLList(PropertyType),
-  resolve: (root) => new Promise((resolve, reject)=> {
-    Property.find((err, properties) => {
+  args: {
+    type: {name:'type', type: GraphQLString}
+  },
+  resolve: (root, args) => new Promise((resolve, reject)=> {
+    let search = {}
+    if (typeof args.type !== 'undefined') search.type = args.type
+    Property.find(search, (err, properties) => {
       err? reject(err) : resolve(properties)
     })
   })
@@ -111,12 +118,13 @@ const updateProperty = {
 
         if (typeof input.id !== 'undefined') f_property.id  = input.id
         if (typeof input.owner !== 'undefined') f_property._owner  = input.owner
+        if (typeof input.price !== 'undefined') f_property.price  = input.price
         if (typeof input.lat !== 'undefined') f_property.lat  = input.lat
         if (typeof input.lng !== 'undefined') f_property.lng  = input.lng
         if (typeof input.address !== 'undefined') f_property.address  = input.address
         if (typeof input.image_standard !== 'undefined') image.standard  = input.image_standard
         if (typeof input.image_vr !== 'undefined') image.vr  = input.image_vr
-        if (typeof input.isActive !== 'undefined') f_property.isActive  = input.isActive
+        // if (typeof input.isActive !== 'undefined') f_property.isActive  = input.isActive
         if (Object.keys(image).length > 0) f_property.image = image
 
         f_property.save((err, e_property) => err? reject(err.errors) : resolve(e_property) )
@@ -139,10 +147,30 @@ const deleteProperty = {
   })
 }
 
+const changeStatusProperty = {
+  type: PropertyType,
+  args: {
+    id: {name: 'id', type: GraphQLID},
+    isActive: {name: 'isActive', type: GraphQLBoolean}
+  },
+  resolve: (obj, args) => new Promise((resolve, reject) => {
+    const {input, id} = args
+    Property.findById(id, (err, f_property) => {
+      if (err) reject(err)
+      else {
+        if (typeof isActive !== 'undefined') f_property.isActive  = isActive
+        f_property.save((err, e_property) => err? reject(err.errors) : resolve(e_property) )
+      }
+    })
+  })
+
+}
+
 module.exports = {
   property,
   properties,
   createProperty,
   updateProperty,
-  deleteProperty
+  deleteProperty,
+  changeStatusProperty
 }

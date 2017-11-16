@@ -9,9 +9,11 @@ let propertySchema = new Schema({
     vr: [String]
   },
   lat: String,
+  type: {type: String, lowercase:true},
   lng: String,
   address: String,
-  isActive: {type: Boolean, default: true}
+  isActive: {type: Boolean, default: true},
+  harga: String
 })
 
 let Property = mongoose.model('Property', propertySchema)

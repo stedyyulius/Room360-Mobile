@@ -4,15 +4,15 @@ const {
 } = require('graphql')
 
 const {
-  user, users, createUser, updateUser, deleteUser,
+  user, users, loginuser, createUser, updateUser, deleteUser,
   request, requests, createRequest, updateRequest, deleteRequest,
-  property, properties, createProperty, updateProperty, deleteProperty
+  property, properties, createProperty, updateProperty, deleteProperty, changeStatusProperty
 } = require('./index')
 
 const appQuery = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    users, user,
+    users, user, loginuser,
     requests, request,
     properties, property
   }
@@ -22,7 +22,7 @@ const mutationType = new GraphQLObjectType({
   fields: {
     createUser, deleteUser, updateUser,
     createRequest, deleteRequest, updateRequest,
-    createProperty, deleteProperty, updateProperty,
+    createProperty, deleteProperty, updateProperty,changeStatusProperty,
   }
 })
 const appSchema = new GraphQLSchema({
