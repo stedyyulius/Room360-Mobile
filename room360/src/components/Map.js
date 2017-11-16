@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
+import axios from 'axios'
 import {
   StyleSheet,
   Image,
@@ -28,12 +29,56 @@ const dummy = [{
   lng: -122.4350
 }]
 
+const defaultZoom = 0.0090
+
 class Map extends Component{
   constructor(props){
     super(props)
     this.state={
-      initialRender: true
+      initialRender: true,
+      region: {
+        latitude: -6.1744,
+        longitude: 106.8294,
+        latitudeDelta: defaultZoom,
+        longitudeDelta: defaultZoom,
+      }
     }
+  }
+
+  async componentWillReceiveProps(){
+    await this.props.location
+    this.setState({
+      region:{
+        latitude: this.props.location.lat,
+        longitude: this.props.location.lng,
+        latitudeDelta: defaultZoom,
+        longitudeDelta: defaultZoom,
+      }
+    })
+  }
+
+  componentWillMount(){
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     alert(position);
+    //    },
+    //    (error) => {
+    //     alert(error)
+    //   },
+    //   {enableHighAccuracy: true, timeout: 20000, maximumAge: 10000}
+    // );
+    var url = 'https://freegeoip.net/json/';
+    axios.get(url)
+    .then(res=>{
+      this.setState({
+        region:{
+          latitude: res.data.latitude,
+          longitude: res.data.longitude,
+          latitudeDelta: defaultZoom,
+          longitudeDelta: defaultZoom,
+        }
+      })
+    })
   }
 
   marker(){
@@ -59,16 +104,13 @@ class Map extends Component{
     )
   }
 
+
   render() {
     return (
         <MapView
           style={ styles.map }
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}>
+          region={this.state.region}
+          >
           {dummy.map((m,i)=>
             <MapView.Marker
                 key={i}
@@ -101,7 +143,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>{
   return{
-
+    location: state.location
   }
 }
 

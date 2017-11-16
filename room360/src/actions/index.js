@@ -12,7 +12,15 @@ const setSession = (status) =>{
   }
 }
 
+const getLocation = (loc) =>{
+  return{
+    type: 'Location',
+    payload: loc
+  }
+}
+
 export{
   detailData,
-  setSession
+  setSession,
+  getLocation
 }

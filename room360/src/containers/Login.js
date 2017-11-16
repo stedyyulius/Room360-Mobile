@@ -41,7 +41,7 @@ async componentDidMount(){
       this.props.navigation.navigate('Room360')
     }
     } catch (error) {
-      alert(error)
+      
     }
   }
 

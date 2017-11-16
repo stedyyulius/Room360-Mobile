@@ -14,6 +14,7 @@ import {
 import Map from '../components/Map'
 import Detail from '../components/Detail'
 import Search from '../components/Search'
+import CitySearch from '../components/CitySearch'
 
 class Home extends Component{
   constructor(props){
@@ -51,6 +52,7 @@ class Home extends Component{
           />
           <Map />
           <Search />
+          <CitySearch />
           <Detail navigation={this.props.navigation}/>
         </View>
     );
