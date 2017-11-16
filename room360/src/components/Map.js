@@ -18,15 +18,15 @@ const dummy = [{
   _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   price: '2.000.000/bulan',
-  lat: 37.7805,
-  lng: -122.4100
+  lat: -6.1744,
+  lng: 106.8294
 },{
   address: 'Jl hello world',
   _id: '1500',
   image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
   price: '5.000.000/bulan',
-  lat: 37.78000,
-  lng: -122.4350
+  lat: -6.1784,
+  lng: 106.8294
 }]
 
 const defaultZoom = 0.0090
