@@ -29,14 +29,18 @@ const dummy = [{
 class Map extends Component{
   constructor(props){
     super(props)
-    this.state={}
+    this.state={
+      initialRender: true
+    }
   }
 
   marker(){
     return(
       <Image
-        source={{uri:'https://socu.org/images/house-circle.png'}}
+        source={require('../assets/home-circle-blue-512.png')}
         style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
+        onLayout={() => this.setState({ initialRender: false })}
+        key={`${this.state.initialRender}`}
      />
     )
   }
