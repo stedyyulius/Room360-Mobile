@@ -38,7 +38,7 @@ class CitySearch extends Component{
       <View>
         <TextInput
         style={styles.searchBar}
-        placeholder="Search City"
+        placeholder="Search Place"
         onChangeText={(e)=> this.searchCity(e)}/>
       </View>
     )
