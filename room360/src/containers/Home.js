@@ -55,7 +55,11 @@ class Home extends Component{
     return (
         <View style={styles.container}>
           <Image
-            source={require('../assets/home-circle-blue-512.png')}
+            source={{uri:'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'}}
+            style={{ width: 0, height: 0 }}
+          />
+          <Image
+            source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Capital_city_marker.svg/2000px-Capital_city_marker.svg.png'}}
             style={{ width: 0, height: 0 }}
           />
           <Map />

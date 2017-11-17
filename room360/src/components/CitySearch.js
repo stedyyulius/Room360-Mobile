@@ -17,12 +17,19 @@ class CitySearch extends Component{
   }
 
   searchCity(loc){
-    Geocoder.geocodeAddress(loc).then(res => {
+    if(loc.length === 0){
       this.props.getLocation({
-        lat: res[0].position.lat,
-        lng: res[0].position.lng
+        lat: -6.180104,
+        lng: 106.82198
       })
-    })
+    } else{
+      Geocoder.geocodeAddress(loc).then(res => {
+        this.props.getLocation({
+          lat: res[0].position.lat,
+          lng: res[0].position.lng
+        })
+      })
+    }
   }
 
 

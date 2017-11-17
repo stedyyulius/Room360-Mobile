@@ -1,11 +1,7 @@
-const initialState = {
-  lat: 6.1751,
-  lng: 106.8650,
-  non: 'non'
-}
+const initialState = 'All'
 
 export default (state = initialState,action) =>{
-    if(action.type === 'Location'){
+    if(action.type === 'Type'){
       if(!action.payload){
         return initialState
       }

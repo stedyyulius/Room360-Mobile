@@ -14,23 +14,29 @@ import { detailData } from '../actions/index'
 import api from '../config'
 
 const defaultMarkerSize = 40
+const defaultLocation = {
+  lat: -6.180104,
+  lng: 106.82198
+}
 const dummy = [{
   address: 'Jl kesono ksini',
   _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   price: '2.000.000/bulan',
-  lat: -6.1744,
-  lng: 106.8294
+  lat: defaultLocation.lat + 0.0029,
+  lng: defaultLocation.lng,
+  type: 'kos'
 },{
   address: 'Jl hello world',
   _id: '1500',
-  image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb',
-  price: '5.000.000/bulan',
-  lat: -6.1784,
-  lng: 106.8294
+  image: 'https://lh4.googleusercontent.com/_uWgFVtvSsek/TUUs53JDrCI/AAAAAAAAFCc/mXkdAs5Wdoo/s1200/Indosat.jpg',
+  price: '5.000.000/hari',
+  lat: defaultLocation.lat,
+  lng: defaultLocation.lng,
+  type: 'event'
 }]
 
-const defaultZoom = 0.0090
+const defaultZoom = 0.019
 
 class Map extends Component{
   constructor(props){
@@ -38,8 +44,8 @@ class Map extends Component{
     this.state={
       initialRender: true,
       region: {
-        latitude: -6.1744,
-        longitude: 106.8294,
+        latitude: defaultLocation.lat,
+        longitude: defaultLocation.lng,
         latitudeDelta: defaultZoom,
         longitudeDelta: defaultZoom,
       }
@@ -48,14 +54,16 @@ class Map extends Component{
 
   async componentWillReceiveProps(){
     await this.props.location
-    this.setState({
-      region:{
-        latitude: this.props.location.lat,
-        longitude: this.props.location.lng,
-        latitudeDelta: defaultZoom,
-        longitudeDelta: defaultZoom,
-      }
-    })
+    if(this.props.location.non !== 'non'){
+      this.setState({
+        region:{
+          latitude: this.props.location.lat,
+          longitude: this.props.location.lng,
+          latitudeDelta: defaultZoom,
+          longitudeDelta: defaultZoom,
+        }
+      })
+    }
   }
 
   componentDidMount(){
@@ -80,8 +88,8 @@ class Map extends Component{
         .catch(err=>{
           this.setState({
             region:{
-              latitude: -6.1744,
-              longitude: 106.8294,
+              latitude: defaultLocation.lat,
+              longitude: defaultLocation.lng,
               latitudeDelta: defaultZoom,
               longitudeDelta: defaultZoom,
             }
@@ -90,15 +98,32 @@ class Map extends Component{
       }
     }
 
-  marker(){
-    return(
-      <Image
-        source={require('../assets/home-circle-blue-512.png')}
-        style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
-        onLayout={() => this.setState({ initialRender: false })}
-        key={`${this.state.initialRender}`}
-     />
-    )
+  marker(type,property){
+    let icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
+    if (property === 'kos'){
+      icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
+    } else if (property === 'apartment'){
+      icon = 'http://www.eatlogos.com/building_logos/png/vector_construction_3_building_logo.png'
+    } else if (property === 'kantor'){
+      icon = 'http://www.eatlogos.com/building_logos/png/vector_blue_building_constructions.png'
+    } else if (property === 'rumah'){
+      icon = 'https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/home-circle-blue-512.png'
+    } else if (property === 'event'){
+      icon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Capital_city_marker.svg/2000px-Capital_city_marker.svg.png'
+    } else if (property === 'hotel'){
+      icon = 'https://www.choicehotels.com/cms/images/choice-hotels/choice-privileges/cp-flex-rewards-icon/cp-flex-rewards-icon.png'
+    }
+
+    if(type === 'All' || type === property){
+      return(
+        <Image
+          source={{uri: icon}}
+          style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
+          onLayout={() => this.setState({ initialRender: false })}
+          key={`${this.state.initialRender}`}
+       />
+      )
+    }
   }
 
   vr(_id){
@@ -119,6 +144,7 @@ class Map extends Component{
         <MapView
           style={ styles.map }
           region={this.state.region}
+          onPress={()=>this.props.detailData({image:null})}
           >
           {dummy.map((m,i)=>
             <MapView.Marker
@@ -132,7 +158,7 @@ class Map extends Component{
                 description={m.price}
                 onPress={()=>this.props.detailData(m)}
                 >
-                {this.marker()}
+                {this.marker(this.props.type,m.type)}
             </MapView.Marker>
           )}
         </MapView>
@@ -152,7 +178,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>{
   return{
-    location: state.location
+    location: state.location,
+    type: state.type
   }
 }
 

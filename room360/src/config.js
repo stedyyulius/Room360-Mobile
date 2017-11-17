@@ -1,3 +1,3 @@
-let apiUrl = `http://localhost:8080/vr`
+let apiUrl = `http://stedyyulius.com/RVR`
 
 export default apiUrl

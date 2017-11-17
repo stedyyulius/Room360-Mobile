@@ -19,8 +19,16 @@ const getLocation = (loc) =>{
   }
 }
 
+const searchType = (type) =>{
+  return{
+    type: 'Type',
+    payload: type
+  }
+}
+
 export{
   detailData,
   setSession,
-  getLocation
+  getLocation,
+  searchType
 }
