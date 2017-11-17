@@ -23,8 +23,8 @@ const dummy = [{
   _id: '1200',
   image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
   price: '2.000.000/bulan',
-  lat: defaultLocation.lat + 0.0029,
-  lng: defaultLocation.lng,
+  lat: defaultLocation.lat,
+  lng: defaultLocation.lng + 0.0029,
   type: 'kos'
 },{
   address: 'Jl hello world',
