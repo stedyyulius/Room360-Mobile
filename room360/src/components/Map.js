@@ -13,30 +13,47 @@ import {
 import { detailData } from '../actions/index'
 import api from '../config'
 
-const defaultMarkerSize = 40
+const defaultMarkerSize = 50
 const defaultLocation = {
   lat: -6.180104,
   lng: 106.82198
 }
 const dummy = [{
-  address: 'Jl kesono ksini',
-  _id: '1200',
-  image: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg',
-  price: '2.000.000/bulan',
-  lat: defaultLocation.lat,
-  lng: defaultLocation.lng - 0.0029,
-  type: 'kos'
+  name: 'Orori Gathering',
+  address: ' Jl Abdul Muis No.46, RT.2/RW.3, Petojo Selatan, Gambir, RT.2/RW.3, Petojo Sel., Gambir, Jakarta, Daerah Khusus Ibukota Jakarta 10160',
+  _id: '1000',
+  image: 'https://pbs.twimg.com/profile_images/2220184700/LOGO_ORORI-03.jpg',
+  lat: -6.174688,
+  lng: 106.820000,
+  type: 'meetup',
+  url:'www.orori.com',
+  description: 'Gathering Orori employees',
+  date: '20 November 2017'
 },{
-  address: 'Jl hello world',
-  _id: '1500',
+  name: 'IWIC HACKHATON',
+  address: 'Indosat KPPTI, Jl. Medan Merdeka Barat, Jakarta Pusat 10110',
+  _id: '1001',
   image: 'https://lh4.googleusercontent.com/_uWgFVtvSsek/TUUs53JDrCI/AAAAAAAAFCc/mXkdAs5Wdoo/s1200/Indosat.jpg',
-  price: '5.000.000/hari',
   lat: defaultLocation.lat,
   lng: defaultLocation.lng,
-  type: 'event'
+  type: 'competition',
+  url: 'https://iwic.indosatooredoo.com/',
+  description: 'Tahun ini Indosat Ooredoo menyelenggarakan kembali acara HACKATHON IWIC 11 sebagai bagian dari kontes inovasi IWIC 11 (Indosat Ooredoo Wireless Innovation Contest ke-11).',
+  date: '17 November 2017'
+},{
+  name: 'Angel sweet 17th Party',
+  address: 'Jl. Boulevard Gading Serpong, Sentra Gading Serpong, Pakulonan Barat, Kelapa Dua, Pakulonan Bar., Klp. Dua, Tangerang,',
+  _id: '1002',
+  image: 'https://media-cdn.tripadvisor.com/media/photo-s/03/aa/43/2a/summarecon-mal-serpong.jpg',
+  lat: -6.240338,
+  lng: 106.628022,
+  type: 'competition',
+  url: 'https://iwic.indosatooredoo.com/',
+  description: 'Angel swwet 17th bitrhday party invite every penabur alumnus',
+  date: '25 November 2017'
 }]
 
-const defaultZoom = 0.019
+const defaultZoom = 0.009
 
 class Map extends Component{
   constructor(props){
@@ -98,26 +115,26 @@ class Map extends Component{
       }
     }
 
-  marker(type,property){
-    let icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
-    if (property === 'kos'){
-      icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
-    } else if (property === 'apartment'){
-      icon = 'http://www.eatlogos.com/building_logos/png/vector_construction_3_building_logo.png'
-    } else if (property === 'kantor'){
-      icon = 'http://www.eatlogos.com/building_logos/png/vector_blue_building_constructions.png'
-    } else if (property === 'rumah'){
-      icon = 'https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/home-circle-blue-512.png'
-    } else if (property === 'event'){
-      icon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Capital_city_marker.svg/2000px-Capital_city_marker.svg.png'
-    } else if (property === 'hotel'){
-      icon = 'https://www.choicehotels.com/cms/images/choice-hotels/choice-privileges/cp-flex-rewards-icon/cp-flex-rewards-icon.png'
-    }
+  marker(type,event,image){
+    // let icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
+    // if (property === 'kos'){
+    //   icon = 'http://realestate.lyongraphics.com/wp-content/uploads/house_circle.png'
+    // } else if (property === 'apartment'){
+    //   icon = 'http://www.eatlogos.com/building_logos/png/vector_construction_3_building_logo.png'
+    // } else if (property === 'kantor'){
+    //   icon = 'http://www.eatlogos.com/building_logos/png/vector_blue_building_constructions.png'
+    // } else if (property === 'rumah'){
+    //   icon = 'https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/home-circle-blue-512.png'
+    // } else if (property === 'event'){
+    //   icon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Capital_city_marker.svg/2000px-Capital_city_marker.svg.png'
+    // } else if (property === 'hotel'){
+    //   icon = 'https://www.choicehotels.com/cms/images/choice-hotels/choice-privileges/cp-flex-rewards-icon/cp-flex-rewards-icon.png'
+    // }
 
-    if(type === 'All' || type === property){
+    if(type === 'All' || type === event){
       return(
         <Image
-          source={{uri: icon}}
+          source={{uri: image}}
           style={{ width: defaultMarkerSize, height: defaultMarkerSize }}
           onLayout={() => this.setState({ initialRender: false })}
           key={`${this.state.initialRender}`}
@@ -154,11 +171,11 @@ class Map extends Component{
                   longitude: m.lng,
                 }}
                 onCalloutPress={()=> this.vr(m._id)}
-                title={m.address}
-                description={m.price}
+                title={m.name}
+                description={m.date}
                 onPress={()=>this.props.detailData(m)}
                 >
-                {this.marker(this.props.type,m.type)}
+                {this.marker(this.props.type,m.type,m.image)}
             </MapView.Marker>
           )}
         </MapView>
@@ -179,7 +196,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) =>{
   return{
     location: state.location,
-    type: state.type
+    type: state.type,
+    event: state.event
   }
 }
 

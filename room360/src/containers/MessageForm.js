@@ -41,11 +41,21 @@ class MessageForm extends Component{
         <View style={styles.detail}>
           <Image style={styles.image} source={{uri:this.props.detail.image}} />
           <View style={styles.specs}>
+            <Text>
+              {this.props.detail.date}
+            </Text>
+            <Text style={styles.detailText}>
+              {this.props.detail.name}
+            </Text>
             <Text style={styles.detailText}>
               {this.props.detail.address}
             </Text>
-            <Text style={styles.detailText}>
-              {this.props.detail.price}
+            <Text>
+              {this.props.detail.description}
+            </Text>
+            <Text style={{color:'blue',marginTop:20}}
+              onPress={() => Linking.openURL(this.props.detail.url)}>
+              {this.props.detail.url}
             </Text>
           </View>
         </View>
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   detailText:{
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold'
   }
 })
