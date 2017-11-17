@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const graphQLHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
-
+const { getLatLng, getLocation, sendMessage, pushUssd } = require('./blinkee/main')
 
 const appSchema = require('./schema/schema')
 const port = process.env.PORT || 4000
@@ -22,9 +22,9 @@ app.use('/graphql', graphQLHTTP (req => ({
   graphiql: true
 })))
 
-// app.use('/cron', cron.init)
 app.use('/playground', expressPlayground({ endpoint: '/graphql' }))
-
+app.use('/getLatLng', getLatLng )
+app.use('/getLocation', getLocation )
 let env = 'prod'
 
 let db_config = {

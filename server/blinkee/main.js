@@ -26,8 +26,11 @@ const getToken = () => {
   })
 }
 
-const getLocation = async(lat,lng) => {
+const getLocation = async(req,res) => {
   let token = await getToken()
+
+  let lat = req.query.lat
+  let lng = req.query.lng
   let location = {
     method: 'GET',
     url: 'https://blinke-stage.apigee.net/io/location',
@@ -40,14 +43,37 @@ const getLocation = async(lat,lng) => {
     }
   }
 
-  request(location, function (error, response, body) {
-    if (error) throw new Error(error);
-    console.log(body);
+  request(options, function (error, response, body) {
+    res.send(error ? error: body)
   })
 }
 
-const sendMessage = async(msisdn, content) => {
+const getLatLng = async(req, res) => {
   let token = await getToken()
+
+  let msisdn = req.query.msisdn
+  let latlng = {
+    method: 'GET',
+    url: `https://blinke-stage.apigee.net/io/users/${msisdn}/location`,
+    headers: {
+      'postman-token': 'b3ac695d-591e-10ec-da3e-955934274b68',
+      'cache-control': 'no-cache',
+      'content-type': 'application/json',
+      authorization: token
+    },
+    json: true
+  }
+
+  request(options, function (error, response, body) {
+    res.send(error ? error: body)
+  })
+}
+
+const sendMessage = async(req, res) => {
+  let token = await getToken()
+
+  let msisdn = req.query.msisdn
+  let content = req.query.content
   let message = {
     method: 'POST',
     url: 'https://blinke-stage.apigee.net/imx/sms',
@@ -98,9 +124,17 @@ const pushUssd = async(msisdn, content) => {
 }
 
 const init = () => {
+  getLatLng(6288133727)
   getLocation(-6.2220818,106.7526381)
-  // sendMessage("6285813372797", 'Your city is under attack!!!')
-  // pushUssd("6285813372797", 'I will find you and kill you :)')
+  sendMessage("6285813372797", 'Your city is under attack!!!')
+  pushUssd("6285813372797", 'I will find you and kill you :)')
 }
 
-init()
+module.exports = {
+  getLatLng,
+  getLocation,
+  sendMessage,
+  pushUssd
+}
+
+// init()

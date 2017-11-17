@@ -18,7 +18,7 @@ class Detail extends Component{
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={()=> navigate('MessageForm')}>
-          <Image source={{uri:this.props.detail.image}} style= { styles.image }/>
+          <Image source={{uri:this.props.detail.image.standard}} style= { styles.image }/>
         </TouchableOpacity>
       </View>
     );
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   image:{
-      width: 200,
-      height: 200,
+      width: 180,
+      height: 180,
       marginBottom: 30,
     }
 });

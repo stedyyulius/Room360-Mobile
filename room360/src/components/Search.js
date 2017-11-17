@@ -22,13 +22,11 @@ class Search extends Component{
           style={styles.picker}
           selectedValue={this.props.type}
           onValueChange={(itemValue, itemIndex) => this.props.searchType(itemValue)}>
-          <Picker.Item label="Select Property Type" value="All" />
-          <Picker.Item label="Kos" value="kos" />
-          <Picker.Item label="kantor" value="kantor" />
-          <Picker.Item label="Event" value="event" />
-          <Picker.Item label="Rumah" value="rumah" />
-          <Picker.Item label="Apartment" value="apartment" />
-          <Picker.Item label="Hotel" value="hotel" />
+          <Picker.Item label="Select Event Type" value="All" />
+          <Picker.Item label="Competition" value="competition" />
+          <Picker.Item label="Gathering" value="gathering" />
+          <Picker.Item label="Meetup" value="meetup" />
+          <Picker.Item label="Party" value="party" />
         </Picker>
     )
   }

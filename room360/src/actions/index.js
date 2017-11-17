@@ -1,3 +1,10 @@
+import axios from 'axios'
+const api = `https://vision-server.herokuapp.com/graphql`
+
+const headers = {
+  'Content-Type': 'application/json'
+}
+
 const detailData = (data) =>{
   return{
     type: 'Detail',
@@ -26,9 +33,23 @@ const searchType = (type) =>{
   }
 }
 
+const getEvents = () =>{
+  let query = `events(approved:1, tipe:"hackathon"){name, location{name},tipe, approved}`
+  return(dispatch)=>{
+    axios.get(`${api}?${query}`)
+    .then(res=>{
+      dispatch({
+        type: 'Events',
+        payload: res.data
+      })
+    })
+  }
+}
+
 export{
   detailData,
   setSession,
   getLocation,
-  searchType
+  searchType,
+  getEvents
 }

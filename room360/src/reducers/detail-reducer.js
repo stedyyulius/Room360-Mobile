@@ -1,5 +1,5 @@
 const initialState = {
-  image: null
+  image: {standard:null}
 }
 
 export default (state = initialState,action) =>{
